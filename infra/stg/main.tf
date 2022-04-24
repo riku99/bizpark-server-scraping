@@ -27,8 +27,18 @@ module "artifact-registry" {
 }
 
 module "cloud-build" {
-  source        = "../modules/cloud-build"
-  region        = var.region
-  target_branch = local.deploy_target_branch
-  registory_name              = var.registory_name
+  source         = "../modules/cloud-build"
+  region         = var.region
+  target_branch  = local.deploy_target_branch
+  registory_name = var.registory_name
+}
+
+module "service-account" {
+  source = "../modules/service-account"
+}
+
+module "cloud-scheduler" {
+  source                      = "../modules/cloud-scheduler"
+  scraping_base_url = var.scraping_base_url
+  service-account-email       = module.service-account.scraping-scheduler-invoker-email
 }
