@@ -1,4 +1,5 @@
 steps:
+  - id: build-backend
   - name: 'docker'
     args:
       - build
