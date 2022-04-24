@@ -1,6 +1,6 @@
 steps:
   - id: build-backend
-  - name: 'docker'
+    name: 'docker'
     args:
       - build
       - --file=Dockerfile
