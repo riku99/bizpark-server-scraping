@@ -3,6 +3,8 @@ import { verifyGcpOidcTokenForCloudScheduler } from '../helpers/verifyGcpOidcTok
 import { isDevelopment } from '../utils';
 import { scrape } from './scrape';
 
+const polUrl = 'https://www.jiji.com/jc/c?g=pol';
+
 export const scrapeJiji = async (req: Request, res: Response) => {
   if (!isDevelopment) {
     const verificationResult = await verifyGcpOidcTokenForCloudScheduler(
@@ -15,7 +17,7 @@ export const scrapeJiji = async (req: Request, res: Response) => {
     }
   }
 
-  await scrape({ url: 'https://www.jiji.com/jc/c?g=pol', genre: 'POLITICS' });
+  await scrape({ url: polUrl, genre: 'POLITICS' });
 
   res.sendStatus(200);
 };

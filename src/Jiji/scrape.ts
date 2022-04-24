@@ -71,7 +71,7 @@ export const scrape = async ({
           genre,
         };
 
-        await axios.post('http://host.docker.internal:4000/news', data, {
+        await axios.post(process.env.NEWS_SAVE_ENDPOINT as string, data, {
           headers: {},
         });
       } catch (e) {
