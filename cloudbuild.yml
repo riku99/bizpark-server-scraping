@@ -4,12 +4,16 @@ steps:
     args:
       - build
       - --file=Dockerfile
+      - '--tag=$_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA'
+      - '--tag=$_ARTIFACT_REPOSITORY_IMAGE_NAME:latest'
       - --cache-from=$_ARTIFACT_REPOSITORY_IMAGE_NAME:latest
       - .
 
-  - name: 'docker'
+  - id: push-backend
+    name: 'docker'
     args:
       - push
+      - --all-tags
       - $_ARTIFACT_REPOSITORY_IMAGE_NAME
     waitFor: ['build-backend']
 
