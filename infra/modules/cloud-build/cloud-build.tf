@@ -1,6 +1,6 @@
 variable "region" {}
 variable "target_branch" {}
-
+variable "registory_name" {}
 
 resource "google_cloudbuild_trigger" "deploy-bizpark-scraping-server" {
   name        = "deploy-bizpark-scraping-server"
@@ -15,4 +15,8 @@ resource "google_cloudbuild_trigger" "deploy-bizpark-scraping-server" {
   }
 
   filename = "./cloudbuild.yml"
+  substitutions = {
+    _ARTIFACT_REPOSITORY_IMAGE_NAME = var.registory_name
+    _REGION                         = var.region
+  }
 }

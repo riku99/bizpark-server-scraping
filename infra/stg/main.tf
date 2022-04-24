@@ -30,4 +30,5 @@ module "cloud-build" {
   source        = "../modules/cloud-build"
   region        = var.region
   target_branch = local.deploy_target_branch
+  registory_name              = var.registory_name
 }
