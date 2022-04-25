@@ -15,3 +15,5 @@ variable "artifact_registry_id" {}
 variable "registory_name" {}
 
 variable "scraping_base_url" {}
+
+variable "news_save_endpoint" {}

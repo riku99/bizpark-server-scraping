@@ -33,10 +33,12 @@ steps:
       - --max-instances=3
       - --min-instances=0
       - --no-use-http2 # HTTP/2での接続は行わない
+      - --set-env-vars=NEWS_SAVE_ENDPOINT=$_NEWS_SAVE_ENDPOINT
 
 substitutions:
   _REGION: by-terraform
   _ARTIFACT_REPOSITORY_IMAGE_NAME: by-terraform
+  _NEWS_SAVE_ENDPOINT: by-terraform
 
 # ビルドフローの中でイメージを保存し、ビルドの結果にイメージを表示する場合は、ビルド構成ファイルで Docker の push コマンドと images フィールドの両方を使用します。
 images:

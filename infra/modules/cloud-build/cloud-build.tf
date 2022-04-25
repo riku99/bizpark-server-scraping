@@ -1,6 +1,7 @@
 variable "region" {}
 variable "target_branch" {}
 variable "registory_name" {}
+variable "news_save_endpoint" {}
 
 resource "google_cloudbuild_trigger" "deploy-bizpark-scraping-server" {
   name        = "deploy-bizpark-scraping-server"
@@ -18,5 +19,6 @@ resource "google_cloudbuild_trigger" "deploy-bizpark-scraping-server" {
   substitutions = {
     _ARTIFACT_REPOSITORY_IMAGE_NAME = var.registory_name
     _REGION                         = var.region
+    _NEWS_SAVE_ENDPOINT = var.news_save_endpoint
   }
 }

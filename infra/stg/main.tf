@@ -27,15 +27,16 @@ module "artifact-registry" {
 }
 
 module "cloud-build" {
-  source         = "../modules/cloud-build"
-  region         = var.region
-  target_branch  = local.deploy_target_branch
-  registory_name = var.registory_name
+  source             = "../modules/cloud-build"
+  region             = var.region
+  target_branch      = local.deploy_target_branch
+  registory_name     = var.registory_name
+  news_save_endpoint = var.news_save_endpoint
 }
 
 module "service-account" {
-  source = "../modules/service-account"
-  project              = var.project
+  source  = "../modules/service-account"
+  project = var.project
 }
 
 module "cloud-scheduler" {
