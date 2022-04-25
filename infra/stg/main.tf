@@ -35,10 +35,11 @@ module "cloud-build" {
 
 module "service-account" {
   source = "../modules/service-account"
+  project              = var.project
 }
 
 module "cloud-scheduler" {
-  source                      = "../modules/cloud-scheduler"
-  scraping_base_url = var.scraping_base_url
-  service-account-email       = module.service-account.scraping-scheduler-invoker-email
+  source                = "../modules/cloud-scheduler"
+  scraping_base_url     = var.scraping_base_url
+  service-account-email = module.service-account.scraping-scheduler-invoker-email
 }
