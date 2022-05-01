@@ -9,7 +9,7 @@
     "dev:start": "yarn ts-node-dev src/index.ts",
     "logs": "docker logs scraping_server",
     "down": "docker compose down",
-    "up": "docker compose up"
+    "up": "docker compose up -d"
   },
   "keywords": [],
   "author": "",

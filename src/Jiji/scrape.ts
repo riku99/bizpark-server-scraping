@@ -72,7 +72,9 @@ export const scrape = async ({
         };
 
         await axios.post(process.env.NEWS_SAVE_ENDPOINT as string, data, {
-          headers: {},
+          headers: {
+            Authorization: `Bearer ${process.env.NEWS_SAVE_ENDPOINT_ACCESS_TOKEN}`,
+          },
         });
       } catch (e) {
         console.log(e);
