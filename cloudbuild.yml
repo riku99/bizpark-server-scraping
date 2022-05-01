@@ -34,6 +34,7 @@ steps:
       - --min-instances=0
       - --no-use-http2 # HTTP/2での接続は行わない
       - --set-env-vars=NEWS_SAVE_ENDPOINT=$_NEWS_SAVE_ENDPOINT
+      - --set-env-vars=NODE_ENV=production
       - --update-secrets=NEWS_SAVE_ENDPOINT_ACCESS_TOKEN=NEWS_SAVE_ENDPOINT_ACCESS_TOKEN:latest
 
 substitutions:
