@@ -2,6 +2,7 @@ import puppeteer from 'puppeteer';
 import { parse } from 'date-fns';
 import { NewsGenre } from '../types';
 import axios from 'axios';
+import { newsProvider } from '../constants';
 
 export const scrape = async ({
   url,
@@ -69,6 +70,7 @@ export const scrape = async ({
           articleCreatedAt,
           image,
           genre,
+          provider: newsProvider.jiji,
         };
 
         await axios.post(process.env.NEWS_SAVE_ENDPOINT as string, data, {
