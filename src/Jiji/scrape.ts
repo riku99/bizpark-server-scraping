@@ -1,8 +1,8 @@
-import puppeteer from 'puppeteer';
-import { parse } from 'date-fns';
-import { NewsGenre } from '../types';
 import axios from 'axios';
+import { parse } from 'date-fns';
+import puppeteer from 'puppeteer';
 import { newsProvider } from '../constants';
+import { NewsGenre } from '../types';
 
 export const scrape = async ({
   url,
@@ -78,6 +78,9 @@ export const scrape = async ({
             Authorization: `Bearer ${process.env.NEWS_SAVE_ENDPOINT_ACCESS_TOKEN}`,
           },
         });
+
+        console.log('作成されるデータ ↓');
+        console.log(JSON.stringify(data));
       } catch (e) {
         console.log(e);
       }
