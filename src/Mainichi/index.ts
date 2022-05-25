@@ -1,28 +1,29 @@
 // 毎日新聞
 
+import type { Request, Response } from 'express';
+import { verifyGcpOidcTokenForCloudScheduler } from '../helpers/verifyGcpOidcTokenForCloudScheduler';
+import { isDevelopment } from '../utils';
 import { scrape } from './scrape';
 
 const bizUrl = 'https://mainichi.jp/enterprise';
+const polUrl = 'https://mainichi.jp/seiji/';
+const stockUrl = 'https://mainichi.jp/stock/';
 
-// export const scrapeMainichi = async (req: Request, res: Response) => {
-//   if (!isDevelopment) {
-//     const verificationResult = await verifyGcpOidcTokenForCloudScheduler(
-//       req,
-//       res
-//     );
+export const scrapeMainichi = async (req: Request, res: Response) => {
+  if (!isDevelopment) {
+    const verificationResult = await verifyGcpOidcTokenForCloudScheduler(
+      req,
+      res
+    );
 
-//     if (!verificationResult) {
-//       return;
-//     }
-//   }
+    if (!verificationResult) {
+      return;
+    }
+  }
 
-//   await scrape({ url: bizUrl, genre: 'BUSINESS' });
-
-//   res.sendStatus(200);
-// };
-
-const run = async () => {
   await scrape({ url: bizUrl, genre: 'BUSINESS' });
-};
+  await scrape({ url: polUrl, genre: 'POLITICS' });
+  await scrape({ url: stockUrl, genre: 'ECONOMY' });
 
-run();
+  res.sendStatus(200);
+};
