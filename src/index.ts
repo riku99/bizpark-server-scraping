@@ -14,7 +14,7 @@ app.get('/jiji', async (req, res) => {
   await scrapeJiji(req, res);
 });
 
-app.get('mainichi', async (req, res) => {
+app.get('/mainichi', async (req, res) => {
   await scrapeMainichi(req, res);
 });
 

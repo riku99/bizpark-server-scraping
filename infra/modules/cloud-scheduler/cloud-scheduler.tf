@@ -32,4 +32,13 @@ resource "google_cloud_scheduler_job" "scraping_mainichi_scheduler" {
   retry_config {
     retry_count = 1
   }
+
+  http_target {
+    http_method = "GET"
+    uri         = "${var.scraping_base_url}/mainichi"
+
+    oidc_token {
+      service_account_email = var.service-account-email
+    }
+  }
 }
