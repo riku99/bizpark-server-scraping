@@ -34,8 +34,8 @@ export const scrapeNikkei = async (req: Request, res: Response) => {
   });
 
   await Promise.all([
-    // runPage({ url: aiUrl, genre: 'TECHNOLOGY', browser }),
-    // runPage({ url: driverlessUrl, genre: 'TECHNOLOGY', browser }),
+    runPage({ url: aiUrl, genre: 'TECHNOLOGY', browser }),
+    runPage({ url: driverlessUrl, genre: 'TECHNOLOGY', browser }),
     // runPage({ url: fintechUrl, genre: 'ECONOMY', browser }),
     // runPage({ url: internertUrl, genre: 'BUSINESS', browser }),
     // runPage({ url: kinyuKeizaiUrl, genre: 'ECONOMY', browser }),
