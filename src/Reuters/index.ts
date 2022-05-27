@@ -52,31 +52,3 @@ export const scrapeReuters = async (req: Request, res: Response) => {
 
   return;
 };
-
-// const run = async () => {
-//   const browser = await puppeteer.launch({
-//     args: ['--no-sandbox'],
-//   });
-
-//   await Promise.all([
-//     runPage({
-//       url: bitcoinUrl,
-//       genre: 'ECONOMY',
-//       topSelectorType: 'section',
-//       browser,
-//     }),
-//     runPage({ url: bizUrl, genre: 'BUSINESS', browser }),
-//     runPage({ url: gloEcoUrl, genre: 'ECONOMY', browser }),
-//     runPage({
-//       url: polUrl,
-//       genre: 'POLITICS',
-//       topSelectorType: 'section',
-//       browser,
-//     }),
-//     runPage({ url: techUrl, genre: 'TECHNOLOGY', browser }),
-//   ]);
-
-//   await browser.close();
-// };
-
-// run();
