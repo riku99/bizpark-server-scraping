@@ -71,9 +71,7 @@ export const scrape = async ({
         }
 
         // サムネイル取得
-        const imageElem = await firstElem.$(
-          'div.articlelist-image img.lazyload'
-        );
+        const imageElem = await firstElem.$('div.articlelist-image img');
         if (imageElem) {
           const imageStr = await (
             await imageElem.getProperty('src')
