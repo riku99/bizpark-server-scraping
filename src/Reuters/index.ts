@@ -29,11 +29,21 @@ export const scrapeReuters = async (req: Request, res: Response) => {
   });
 
   await Promise.all([
-    runPage({ url: bitcoinUrl, genre: 'ECONOMY', topSelectorType: 'section' }),
-    runPage({ url: bizUrl, genre: 'BUSINESS' }),
-    runPage({ url: gloEcoUrl, genre: 'ECONOMY' }),
-    runPage({ url: polUrl, genre: 'POLITICS', topSelectorType: 'section' }),
-    runPage({ url: techUrl, genre: 'TECHNOLOGY' }),
+    runPage({
+      url: bitcoinUrl,
+      genre: 'ECONOMY',
+      topSelectorType: 'section',
+      browser,
+    }),
+    runPage({ url: bizUrl, genre: 'BUSINESS', browser }),
+    runPage({ url: gloEcoUrl, genre: 'ECONOMY', browser }),
+    runPage({
+      url: polUrl,
+      genre: 'POLITICS',
+      topSelectorType: 'section',
+      browser,
+    }),
+    runPage({ url: techUrl, genre: 'TECHNOLOGY', browser }),
   ]);
 
   await browser.close();
@@ -42,3 +52,31 @@ export const scrapeReuters = async (req: Request, res: Response) => {
 
   return;
 };
+
+// const run = async () => {
+//   const browser = await puppeteer.launch({
+//     args: ['--no-sandbox'],
+//   });
+
+//   await Promise.all([
+//     runPage({
+//       url: bitcoinUrl,
+//       genre: 'ECONOMY',
+//       topSelectorType: 'section',
+//       browser,
+//     }),
+//     runPage({ url: bizUrl, genre: 'BUSINESS', browser }),
+//     runPage({ url: gloEcoUrl, genre: 'ECONOMY', browser }),
+//     runPage({
+//       url: polUrl,
+//       genre: 'POLITICS',
+//       topSelectorType: 'section',
+//       browser,
+//     }),
+//     runPage({ url: techUrl, genre: 'TECHNOLOGY', browser }),
+//   ]);
+
+//   await browser.close();
+// };
+
+// run();

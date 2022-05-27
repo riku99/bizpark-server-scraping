@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { parse } from 'date-fns';
 import puppeteer from 'puppeteer';
 import { newsProvider } from '../constants';
@@ -7,25 +8,25 @@ export const runPage = async ({
   url,
   genre,
   topSelectorType,
+  browser,
 }: {
   url: string;
   genre: NewsGenre;
   topSelectorType?: 'section';
+  browser: puppeteer.Browser;
 }) => {
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+  try {
+    const page = await browser.newPage();
+    await page.goto(url);
 
-  const page = await browser.newPage();
-  await page.goto(url);
+    const topSelector =
+      topSelectorType === 'section' ? 'section.top-section' : 'div.topStory';
 
-  const topSelector =
-    topSelectorType === 'section' ? 'section.top-section' : 'div.topStory';
+    const topElem = await page.waitForSelector(topSelector);
 
-  const topElem = await page.waitForSelector(topSelector);
+    const getArticleCreatedAt = async (): Promise<Date | void> => {
+      const dateElem = await page.$$('time.TextLabel__text-label___3oCVw');
 
-  const getArticleCreatedAt = async (): Promise<Date | void> => {
-    const dateElem = await page.$$('time.TextLabel__text-label___3oCVw');
-
-    try {
       // 2022年2月22日
       const dateStr = await (
         await dateElem[0]?.getProperty('textContent')
@@ -55,15 +56,13 @@ export const runPage = async ({
       } else if (typeof dateStr === 'string') {
         return parse(dateStr, 'yyyy年M月dd日', new Date());
       }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+    };
 
-  const getTitile = async (): Promise<string | void> => {
-    const titleElem = await page.waitForSelector('h1.Headline-headline-2FXIq');
-    if (titleElem) {
-      try {
+    const getTitile = async (): Promise<string | void> => {
+      const titleElem = await page.waitForSelector(
+        'h1.Headline-headline-2FXIq'
+      );
+      if (titleElem) {
         const title = await (
           await titleElem.getProperty('textContent')
         ).jsonValue();
@@ -71,49 +70,52 @@ export const runPage = async ({
         if (typeof title === 'string') {
           return title;
         }
-      } catch (e) {
-        console.log(e);
+      }
+    };
+
+    // 一番上にある記事
+    if (topElem) {
+      const imageElem = await topElem.$('img');
+
+      let image: string | undefined;
+
+      if (imageElem) {
+        image = await (await imageElem.getProperty('currentSrc')).jsonValue();
+      }
+
+      const linkElem = await topElem.$('h2 a');
+      await linkElem?.click();
+      await page.waitForNavigation();
+
+      const link = page.url();
+
+      const [articleCreatedAt, title] = await Promise.all([
+        getArticleCreatedAt(),
+        getTitile(),
+      ]);
+
+      if (title && link) {
+        const data = {
+          title,
+          link,
+          articleCreatedAt: articleCreatedAt ?? undefined,
+          image,
+          genre,
+          provider: newsProvider.reuters,
+        };
+
+        await axios.post(process.env.NEWS_SAVE_ENDPOINT as string, data, {
+          headers: {
+            Authorization: `Bearer ${process.env.NEWS_SAVE_ENDPOINT_ACCESS_TOKEN}`,
+          },
+        });
+
+        console.log('作成されるデータ ↓');
+        console.log(JSON.stringify(data));
       }
     }
-  };
-
-  // 一番上にある記事
-  if (topElem) {
-    const imageElem = await topElem.$('img');
-
-    let image: string | undefined;
-
-    if (imageElem) {
-      image = await (await imageElem.getProperty('currentSrc')).jsonValue();
-    }
-
-    const linkElem = await topElem.$('h2 a');
-    await linkElem?.click();
-    await page.waitForNavigation();
-
-    const link = page.url();
-
-    const [articleCreatedAt, title] = await Promise.all([
-      getArticleCreatedAt(),
-      getTitile(),
-    ]);
-
-    if (title && link) {
-      const d = {
-        title,
-        link,
-        articleCreatedAt: articleCreatedAt ?? undefined,
-        image,
-        genre,
-        provider: newsProvider.reuters,
-      };
-
-      console.log(d);
-      try {
-        // POST
-      } catch (e) {
-        console.log(e);
-      }
-    }
+  } catch (e) {
+    console.log(`Reutersの${url}で何かしらのエラー`);
+    console.log(e);
   }
 };

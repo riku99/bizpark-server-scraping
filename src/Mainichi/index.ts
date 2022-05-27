@@ -34,4 +34,6 @@ export const scrapeMainichi = async (req: Request, res: Response) => {
 
   await browser.close();
   res.sendStatus(200);
+
+  return;
 };
