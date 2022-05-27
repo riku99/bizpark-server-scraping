@@ -42,8 +42,8 @@ export const scrapeNikkei = async (req: Request, res: Response) => {
     runPage({ url: ecoUrl, genre: 'ECONOMY', browser }),
     runPage({ url: monetaryUrl, genre: 'ECONOMY', browser }),
     runPage({ url: polUrl, genre: 'POLITICS', browser }),
-    // runPage({ url: serveiceUrl, genre: 'BUSINESS', browser }),
-    // runPage({ url: startupUrl, genre: 'BUSINESS', browser }),
+    runPage({ url: serveiceUrl, genre: 'BUSINESS', browser }),
+    runPage({ url: startupUrl, genre: 'BUSINESS', browser }),
   ]);
 
   await browser.close();

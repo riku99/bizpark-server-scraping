@@ -15,7 +15,9 @@ export const runPage = async ({
 }) => {
   try {
     const page = await browser.newPage();
-    await page.goto(url);
+    await page.goto(url, {
+      timeout: 60000,
+    });
 
     const linkSelector = 'h3.m-miM09_title a';
 
