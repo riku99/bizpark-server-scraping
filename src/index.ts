@@ -1,6 +1,7 @@
 import express from 'express';
 import { scrapeJiji } from './Jiji';
 import { scrapeMainichi } from './Mainichi';
+import { scrapeNikkei } from './Nikkei';
 import { scrapeReuters } from './Reuters';
 require('dotenv').config();
 
@@ -21,6 +22,10 @@ app.get('/mainichi', async (req, res) => {
 
 app.get('/reuters', async (req, res) => {
   await scrapeReuters(req, res);
+});
+
+app.get('/nikkei', async (req, res) => {
+  await scrapeNikkei(req, res);
 });
 
 app.listen(port, () => {
