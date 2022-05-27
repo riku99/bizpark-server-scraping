@@ -1,5 +1,6 @@
 import express from 'express';
 import { scrapeJiji } from './Jiji';
+import { scrapeMainichi } from './Mainichi';
 require('dotenv').config();
 
 const app = express();
@@ -9,8 +10,12 @@ app.get('/health', (req, res) => {
   res.send('Hello World');
 });
 
-app.get('/jiji', (req, res) => {
-  scrapeJiji(req, res);
+app.get('/jiji', async (req, res) => {
+  await scrapeJiji(req, res);
+});
+
+app.get('/mainichi', async (req, res) => {
+  await scrapeMainichi(req, res);
 });
 
 app.listen(port, () => {
