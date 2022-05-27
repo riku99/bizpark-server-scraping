@@ -13,7 +13,6 @@ export const scrape = async ({
 }) => {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox'],
-    headless: false,
   });
   try {
     const page = await browser.newPage();
