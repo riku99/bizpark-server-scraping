@@ -112,6 +112,7 @@ export const runPage = async ({
           console.log('作成されるデータ ↓');
           console.log(JSON.stringify(data));
         } else {
+          console.log('titleまたはlinkが存在しません');
           console.log('title is ' + title);
           console.log('link is ' + link);
         }
