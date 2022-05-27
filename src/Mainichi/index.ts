@@ -4,7 +4,7 @@ import type { Request, Response } from 'express';
 import puppeteer from 'puppeteer';
 import { verifyGcpOidcTokenForCloudScheduler } from '../helpers/verifyGcpOidcTokenForCloudScheduler';
 import { isDevelopment } from '../utils';
-import { runPage } from './scrape';
+import { runPage } from './runPage';
 
 const bizUrl = 'https://mainichi.jp/enterprise';
 const polUrl = 'https://mainichi.jp/seiji/';
@@ -34,4 +34,6 @@ export const scrapeMainichi = async (req: Request, res: Response) => {
 
   await browser.close();
   res.sendStatus(200);
+
+  return;
 };
