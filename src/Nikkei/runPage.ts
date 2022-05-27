@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { parse } from 'date-fns';
 import puppeteer from 'puppeteer';
 import { newsProvider } from '../constants';
@@ -116,13 +115,13 @@ export const runPage = async ({
             provider: newsProvider.nikkei,
           };
 
-          await axios.post(process.env.NEWS_SAVE_ENDPOINT as string, data, {
-            headers: {
-              Authorization: `Bearer ${process.env.NEWS_SAVE_ENDPOINT_ACCESS_TOKEN}`,
-            },
-          });
+          // await axios.post(process.env.NEWS_SAVE_ENDPOINT as string, data, {
+          //   headers: {
+          //     Authorization: `Bearer ${process.env.NEWS_SAVE_ENDPOINT_ACCESS_TOKEN}`,
+          //   },
+          // });
 
-          console.log('作成されるデータ ↓');
+          console.log(`${url}から作成されるデータ ↓`);
           console.log(JSON.stringify(data));
         }
       }
