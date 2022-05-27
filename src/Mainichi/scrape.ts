@@ -4,16 +4,15 @@ import puppeteer from 'puppeteer';
 import { newsProvider } from '../constants';
 import { NewsGenre } from '../types';
 
-export const scrape = async ({
+export const runPage = async ({
   url,
   genre,
+  browser,
 }: {
   url: string;
   genre: NewsGenre;
+  browser: puppeteer.Browser;
 }) => {
-  const browser = await puppeteer.launch({
-    args: ['--no-sandbox'],
-  });
   try {
     const page = await browser.newPage();
     await page.goto(url, {
@@ -37,7 +36,7 @@ export const scrape = async ({
         // 会員限定記事の場合はスルー
         const lockedElem = await firstElem.$('span.is-limited');
         if (lockedElem) {
-          await browser.close();
+          // await browser.close();
           return;
         }
 
@@ -123,7 +122,5 @@ export const scrape = async ({
   } catch (e) {
     console.log('予期せぬエラー');
     console.log(e);
-  } finally {
-    await browser.close();
   }
 };
