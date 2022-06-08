@@ -9,3 +9,5 @@ variable "region" {
 variable "zone" {
   default = "asia-northeast1-c"
 }
+
+variable "artifact_registry_id" {}

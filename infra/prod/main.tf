@@ -14,3 +14,14 @@ provider "google" {
   region  = var.region
   zone    = var.zone
 }
+
+locals {
+  deploy_target_branch = "main"
+}
+
+module "artifact-registry" {
+  source               = "../modules/artifact-registry"
+  project              = var.project
+  location             = var.region
+  artifact_registry_id = var.artifact_registry_id
+}
