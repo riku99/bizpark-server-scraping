@@ -38,3 +38,9 @@ module "cloud-build" {
   registory_name     = var.registory_name
   news_save_endpoint = var.news_save_endpoint
 }
+
+module "cloud-scheduler" {
+  source                = "../modules/cloud-scheduler"
+  scraping_base_url     = var.scraping_base_url
+  service-account-email = module.service-account.scraping-scheduler-invoker-email
+}
