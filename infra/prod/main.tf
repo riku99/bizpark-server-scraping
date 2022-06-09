@@ -25,3 +25,16 @@ module "artifact-registry" {
   location             = var.region
   artifact_registry_id = var.artifact_registry_id
 }
+
+module "service-account" {
+  source  = "../modules/service-account"
+  project = var.project
+}
+
+module "cloud-build" {
+  source             = "../modules/cloud-build"
+  region             = var.region
+  target_branch      = local.deploy_target_branch
+  registory_name     = var.registory_name
+  news_save_endpoint = var.news_save_endpoint
+}

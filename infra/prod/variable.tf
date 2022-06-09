@@ -11,3 +11,7 @@ variable "zone" {
 }
 
 variable "artifact_registry_id" {}
+
+variable "registory_name" {}
+
+variable "news_save_endpoint" {}
