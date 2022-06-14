@@ -30,8 +30,8 @@ steps:
       - --tag=latest
       - --cpu=1
       - --memory=1Gi
-      - --max-instances=3
       - --min-instances=0
+      - --concurrency=1
       - --no-use-http2 # HTTP/2での接続は行わない
       - --set-env-vars=NEWS_SAVE_ENDPOINT=$_NEWS_SAVE_ENDPOINT
       - --set-env-vars=NODE_ENV=production
