@@ -52,20 +52,32 @@ export const runPage = async ({
       timeout: 70000,
     });
 
-    const topContentsElem = await page.waitForSelector('div.p-cardList-card a');
+    const topContentElem = await page.waitForSelector('div.p-cardList-card');
 
-    if (!topContentsElem) {
+    if (!topContentElem) {
       return;
     }
 
-    const imageElem = await topContentsElem.$('img');
+    // 「有料会員限定」ラベル
+    const primeLabelElem = await topContentElem.$('div.p-label-primeLabel');
+    if (primeLabelElem) {
+      return;
+    }
+
+    const imageElem = await topContentElem.$('img');
     let image: string | undefined;
 
     if (imageElem) {
       image = await (await imageElem.getProperty('currentSrc')).jsonValue();
     }
 
-    await topContentsElem.click();
+    const contentLinkElem = await topContentElem.$('a');
+
+    if (!contentLinkElem) {
+      return;
+    }
+
+    await contentLinkElem.click();
     await page.waitForNavigation({
       timeout: 70000,
     });
