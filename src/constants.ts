@@ -5,4 +5,5 @@ export const newsProvider = {
   reuters: 'ロイター',
   jiji: '時事通信社',
   mainichi: '毎日新聞',
+  businessInsider: 'ビシネスインサイダー',
 };
