@@ -29,7 +29,7 @@ app.get('/nikkei', async (req, res) => {
   await scrapeNikkei(req, res);
 });
 
-app.get('businnes-insider', async (req, res) => {
+app.get('/businnes-insider', async (req, res) => {
   await scrapeBusinessInsider(req, res);
 });
 
