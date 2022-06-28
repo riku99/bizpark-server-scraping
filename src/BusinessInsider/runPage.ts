@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
 import { newsProvider } from '../constants';
+import { postToNewsSaveEndpoint } from '../helpers/postToNewsSaveEndpoint';
 import { NewsGenre } from '../types';
 
 const getArticleCreatedAt = async ({
@@ -99,7 +100,7 @@ export const runPage = async ({
         provider: newsProvider.businessInsider,
       };
 
-      console.log(data);
+      await postToNewsSaveEndpoint(data);
     }
   } catch (e) {
     console.log(`⚠️ビジネスインサイダーの${url}でエラー発生`);

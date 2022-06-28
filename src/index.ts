@@ -1,4 +1,5 @@
 import express from 'express';
+import { scrapeBusinessInsider } from './BusinessInsider';
 import { scrapeJiji } from './Jiji';
 import { scrapeMainichi } from './Mainichi';
 import { scrapeNikkei } from './Nikkei';
@@ -26,6 +27,10 @@ app.get('/reuters', async (req, res) => {
 
 app.get('/nikkei', async (req, res) => {
   await scrapeNikkei(req, res);
+});
+
+app.get('businnes-insider', async (req, res) => {
+  await scrapeBusinessInsider(req, res);
 });
 
 app.listen(port, () => {
