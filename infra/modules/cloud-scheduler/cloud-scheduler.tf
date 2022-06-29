@@ -105,3 +105,24 @@ resource "google_cloud_scheduler_job" "scraping_business_insider_scheduler" {
     }
   }
 }
+
+resource "google_cloud_scheduler_job" "scraping_asahi_scheduler" {
+  name = "scraping-asahi"
+  description = "朝日新聞のスクレイピング"
+  schedule         = "*/20 * * * *" 
+  time_zone        = "Asia/Tokyo"
+  attempt_deadline = "360s"
+
+  retry_config {
+    retry_count = 1
+  }
+
+  http_target {
+    http_method = "GET"
+    uri         = "${var.scraping_base_url}/asahi"
+
+    oidc_token {
+      service_account_email = var.service-account-email
+    }
+  }
+}
