@@ -6,4 +6,5 @@ export const newsProvider = {
   jiji: '時事通信社',
   mainichi: '毎日新聞',
   businessInsider: 'BUSINESS INSIDER',
+  asahi: '朝日新聞',
 };
