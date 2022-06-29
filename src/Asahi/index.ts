@@ -14,7 +14,7 @@ const diplomacyUrl =
   'https://www.asahi.com/politics/list/diplomacy.html?iref=pc_gnavi'; // 外交
 const senkyoUrl = 'https://www.asahi.com/senkyo/?iref=pc_gnavi'; // 選挙
 
-export const scrapeReuters = async (req: Request, res: Response) => {
+export const scrapeAsahi = async (req: Request, res: Response) => {
   if (!isDevelopment) {
     const verificationResult = await verifyGcpOidcTokenForCloudScheduler(
       req,
